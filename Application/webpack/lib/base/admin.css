@@ -1,0 +1,78 @@
+/* 全屏自适应布局  */
+html,body{width:100%;height:100%;overflow:hidden;margin:0;
+    background-color: #ebeef1;}
+html{_height:auto;_padding:50px 0 0px;}
+
+.gc-hd,.gc-sd,.gc-mn,.gc-ft{position:absolute;left:0;}
+.gc-hd,.gc-ft{width:100%;}
+.gc-sd,.gc-mn{top:51px;bottom:0px;_height:100%;
+    overflow: hidden;}
+.gc-hd{top:0;height:50px;}
+
+.gc-mn{_position:relative;left:180px;right:0;_top:0;_left:0;_margin-left:180px;transition: left .1s ease-in-out;
+    z-index: 2;
+    background-color: #ebeef1;}
+.gc-sd{overflow-y:auto;
+    width: 180px;
+    background-color: #303641;
+    z-index: 0;}
+.gc-close .gc-mn{left: 0;_margin-left:0px;}
+
+.gc-menu-h1 .f-icon{padding-left: 10px;padding-right: 5px;font-size: 20px;}
+.gc-top{
+    background-color: #fff;
+    border-bottom: 1px solid #e9e9e9;}
+.gc-logo{
+    display: block;
+    height: 50px;
+    text-decoration: none;
+    overflow: hidden;
+    width: 179px;}
+.gc-logo img{
+    margin-left: 10px;height: 50px;}
+.gc-top-nav{
+    height: 50px;
+    line-height: 50px;cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    float: left;
+    color: #666;
+    text-decoration: none;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    border-left: 1px solid #eee;}
+.gc-top-nav i{
+    font-size: 20px;}
+.gc-top-nav.on,.gc-top-nav:hover{
+    background-color:#ec651a;
+    color:#fff}
+.gc-menu li{
+    font-size: 0;
+    display: block;
+    *display: inline-block;}
+.gc-menu .gc-menu-title{
+    font-size: 16px;
+    line-height: 42px;
+    color: #fff;}
+.gc-menu-title .gc-menu-h1{
+    height: 40px;
+    background-color: #425968;}
+.gc-menu-a{line-height: 42px;
+    height: 42px; color: #fff;
+    font-size: 14px;
+    display: block;background-color: #6c889b;
+    border-bottom: 1px solid #567082;
+    white-space: nowrap;
+    padding-left: 10px;
+    text-decoration: none;}
+.gc-menu-a.on,.gc-menu-a:hover{
+    background-color: #ebeef1;
+    color: #666;}
+.gc-logo span{
+    font-size: 26px;
+    display: block;
+    text-align: center;
+    line-height: 50px;
+    font-weight: bold;
+    color: #444;}

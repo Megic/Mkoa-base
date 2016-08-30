@@ -1,0 +1,15 @@
+.list-title{
+    margin: 0;
+    padding: 0;
+    line-height: 34px;}
+.f-bgc-white{
+    background-color: #fff;}
+.mkoa-form{
+    width: 100%;}
+.mkoa-form td{
+    border: 1px solid #ddd;text-align: left;
+    padding: 10px;}
+.mkoa-form-title{
+    width: 100px;
+    font-size: 14px; text-align: center!important;
+    background-color: #f5f5f5;}

@@ -1,0 +1,1 @@
+require('Mkoa')(__dirname,'dev');

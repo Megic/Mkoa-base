@@ -1,0 +1,10 @@
+{
+  "name": "mkoa-moudle-auth",
+  "version": "0.0.1",
+  "dependencies": {
+    "captchapng": "0.0.1",
+    "koa-passport": "^1.2.0",
+    "passport-local": "^1.0.0",
+    "svg-captcha": "^1.0.5"
+  }
+}

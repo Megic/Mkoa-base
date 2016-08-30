@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MKoa</title>
+    <style>
+
+        #login{
+            position: absolute;
+            top:45%;
+            margin-top: -160px;
+            z-index: 9;
+            width: 320px;
+            padding: 10px;
+            left: 50%;
+            margin-left: -160px;
+            }
+        #login-bd{
+            background-color: #fff; border-radius: 5px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body ms-controller="app">
+<div id="particles-js"></div>
+<div id="login" ms-controller="login">
+<form action="auth/login" method="post">
+    <div class="f-tac f-p10"><h2>Mkoa Ucenter</h2></div>
+    <div id="login-bd">
+    <div><input type="text"  name="username" placeholder="用户名/手机号码/邮箱"/></div>
+    <div class="f-mt10"><input type="password" name="password" placeholder="登录密码" /></div>
+        <input type="text" name="captcha"  placeholder="验证码">
+        <img src="auth/captcha?" title="点击刷新验证码" onclick="this.src = this.src + Math.random();"/>
+        <br>
+    <button type="submit" class="f-btn f-btn-primary f-btn-block f-mt20">登录</button>
+        <a href="register" class="f-btn f-btn-block f-mt20">注册</a>
+
+        <br> <br>
+        <a href="auth/checkLogin">检查登录状态</a>&nbsp;<a href="auth/lgout">退出登录</a>
+    </div>
+</form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>登录</title>
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" href="<%-$HOST%><%-$V%>/common.js.css?<%-$SV%>"/>
+    <link rel="stylesheet" href="<%-$HOST%><%-$V%><%-$PATH%>.css?<%-$SV%>"/>
+    <script src="<%-$HOST%>lib/autofix.js"></script>
+    <!--[if lt IE 9]>
+    <script> (function(){if(!/*@cc_on!@*/0)return;var e = "abbr,article,aside,audio,canvas,datalist,details,dialog,eventsource,figure,footer,header,hgroup,mark,menu,meter,nav,output,progress,section,time,video".split(','),i=e.length;while(i--){document.createElement(e[i])}})() </script>
+    <![endif]-->
+</head>
+<body>
+<!--loading.begin-->
+<div id="loading"><div id="loading-box"><p>加载中...</p></div></div>
+<!--loading.end-->
+
+<div ms-controller="main">
+    <div class="gc-hd f-cb gc-top" >
+        <a href="#" class="f-fl gc-logo">
+            <!--<img src="images/logo.png" alt="logo"/>-->
+            <span>管理中心</span>
+        </a>
+        <span class="gc-top-nav" id="toggle-menu"><i>&#8801;</i></span>
+    <span class="f-fr gc-top-right">
+        <a  ms-for="el in @topMenu" ms-class="[(@curMenu==el.id?'on':'')]" ms-click="@chooseMenu(el.id)"  ms-attr="{href:el.url}" target="gc-iframe" class="gc-top-nav"><i class="f-icon f-icon2 f-mr5" ms-html="el.icon" ></i>{{el.name}}</a>
+        <a ms-click="@lgout" class="gc-top-nav"><i class="f-icon f-mr5">&#xe617;</i>退出</a>
+    </span>
+    </div>
+    <div class="gc-sd">
+        <div class="gc-menu">
+            <ul ms-if="@leftMenu">
+                <li class="gc-menu-title"   ms-for="el in @leftMenu" >
+                    <div class="gc-menu-h1 f-textof">
+                        <i class="f-icon f-icon2 f-mr5" ms-html="el.icon"></i>{{el.name}}
+                    </div>
+                    <div>
+                <span>
+                    <a  ms-for="obj in el.children" ms-attr="{href:obj.url}" target="gc-iframe" class="gc-menu-a f-textof">. {{obj.name}}</a>
+                </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--主体内容-->
+    <div class="gc-mn" >
+        <iframe ms-attr="{src:@mainurl}" frameborder="0" width="100%" height="100%" id="gc-iframe"  name="gc-iframe"  ></iframe>
+    </div>
+</div>
+
+
+
+<script src="<%-$HOST%>lib/jquery.min.js?<%-$SV%>"></script>
+<script src="<%-$HOST%>lib/avalon.js?<%-$SV%>"></script>
+<script src="<%-$HOST%><%-$V%>/common.js?<%-$SV%>"></script>
+<script src="<%-$HOST%><%-$V%><%-$PATH%>.js?<%-$SV%>"></script>
+
+
+</body>
+</html>

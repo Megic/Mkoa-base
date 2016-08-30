@@ -1,0 +1,83 @@
+
+@-webkit-keyframes bounceIn { /* 默认 */
+ 0% {
+  opacity: 0;
+  -webkit-transform: scale(.5);
+  transform: scale(.5)
+ }
+ 100% {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  transform: scale(1)
+ }
+}
+@keyframes bounceIn {
+ 0% {
+  opacity: 0;
+  -webkit-transform: scale(.5);
+  -ms-transform: scale(.5);
+  transform: scale(.5)
+ }
+ 100% {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1)
+ }
+}
+
+@-webkit-keyframes rotate{from{-webkit-transform:rotate(0deg); } to{-webkit-transform:rotate(360deg); } }
+@keyframes rotate{from{transform:rotate(0deg); } to{transform:rotate(360deg); } }
+
+
+.mkoa-msg{
+ position: fixed;
+ top: 45%;
+ left: 0;
+ width: 100%;
+ text-align: center;
+ z-index: 999999999;}
+.mkoa-msg-bd{
+ -webkit-animation-fill-mode: both; animation-fill-mode: both; -webkit-animation-duration:.2s; animation-duration:.2s;
+ display: inline-block;
+ border: 1px solid #ccc;text-align: left;
+ font-size: 16px;
+ color: #666;max-width: 300px;
+ padding: 15px;
+ padding-left: 20px;
+ padding-right: 20px;
+ border-radius: 4px;
+ background-color: #fff; box-shadow: 1px 1px 10px rgba(0,0,0,.2);
+ -webkit-animation-name: bounceIn;animation-name: bounceIn;
+}
+.mkoa-msg-icon{
+ font-size: 26px;
+}
+.mkoa-msg-com{
+ margin-right: 10px;
+ font-weight: bold;
+}
+.mkoa-msg-success{
+ color: #1ea514;}
+.mkoa-msg-error{
+ color: #d61220;}
+.mkoa-msg-loading{
+ -webkit-animation-fill-mode: both; animation-fill-mode: both; -webkit-animation-duration:.2s; animation-duration:.2s;
+ -webkit-animation-name: bounceIn;animation-name: bounceIn;
+ display: inline-block;
+ padding: 15px 20px 5px 20px;
+ background-color: rgba(0,0,0,0.6);border-radius: 8px}
+.mkoa-msg-loading p{
+ font-size: 12px;
+ line-height: 25px;
+ color: #fff;}
+.mkoa-msg-loading .mkoa-msg-icon{
+ color: #fff;
+ font-size: 36px;animation: 3.0s linear 0s normal none infinite rotate; -webkit-animation:3.0s linear 0s normal none infinite rotate;}
+#mkoaMsg_mark{
+ z-index: 999;
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;}
