@@ -35,7 +35,9 @@ module.exports = function ($this) {
         //验证码检测
         if(parseInt($this.POST['captcha'])!=$this.session.ucenter_captcha){
             $this.error($this.langs['captchaError']);return;
-        }else{$this.session.ucenter_captcha=null;}
+        }else{
+            $this.session.ucenter_captcha=null;
+        }
 
         $this.POST['status']=1;
         $this.POST['groupId']=1;//默认用户组

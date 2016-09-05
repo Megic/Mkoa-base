@@ -23,6 +23,9 @@ module.exports = function ($this) {
                 $this.error('登录帐号/手机号码/Email已被他人使用');
             }else{
                 yield $D('member').update($this.POST, {where:{id:$this['req'].user.id}});
+                var newuser = yield $D('member').findOne({where: {id:$this['req'].user.id}});
+                yield $this.logIn(newuser);//更新登录信息
+                
                 $this.success();
             }
         }else{

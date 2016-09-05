@@ -37,7 +37,7 @@
                 <div class="f-cb f-mt10">
                     <div class="g-w65 g-fl"> <input type="text" ms-duplex="@form.captcha"   placeholder="验证码"></div>
                     <div class="g-w35 g-fl">
-                    <img src="../ucenter/auth/captcha?" title="点击刷新验证码" onclick="this.src = this.src + Math.random();"/>
+                    <img src="../ucenter/auth/captcha?" title="点击刷新验证码" id="captcha" onclick="this.src = this.src + Math.random();"/>
                         </div>
                 </div>
                 <button type="submit" class="f-btn f-btn-primary f-btn-block f-mt20">登录</button>

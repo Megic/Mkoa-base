@@ -31,7 +31,8 @@ module.exports = {
     },
     externals: {//一些全局引用
         "avalon": "avalon",
-        "$":"jQuery"
+        "$":"jQuery",
+        "webuploader":"WebUploader"
     },
     resolveLoader: {
         modulesDirectories: [
@@ -47,6 +48,8 @@ module.exports = {
         ,alias: {
             '$msg':'msg/index'
             ,'$V':'$V'
+            ,'$upload':'upload/index'
+            ,'layer': 'layer/layer'
             ,'$F':'$F'
             ,'$pager':'pager/mkoaPager'
         }

@@ -17,7 +17,7 @@ var vm=avalon.define({
         showPages:5,//页码显示数量
         listData:[],
         getData:function(option){
-            $F.GETLoaing($C.apiPath+'admin/member/findAll',option,function(data){//获取列表数据
+            $F.GET($C.apiPath+'admin/member/findAll',option,function(data){//获取列表数据
                 if(option.currentPage==1)vm.pager.totalItems=data.count;
                 vm.pager.listData=data.rows;
             });

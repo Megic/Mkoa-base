@@ -17,6 +17,8 @@ var vm = avalon.define({
             setTimeout(function(){//跳转地址
                 location.href=$C.$host+'workstation/index';
             },500)
+        },function(){
+            $('#captcha').click();//刷新验证码
         });
     }
 });

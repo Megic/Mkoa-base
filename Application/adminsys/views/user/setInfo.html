@@ -25,6 +25,13 @@
         <div class="f-bgc-white f-p10 f-tac" >
             <form  ms-validate="@validate">
                 <table class="mkoa-form f-f14">
+                    <tr><td class="mkoa-form-title"><span>头像</span></td>
+                        <td>
+                            <div class="headimgurl" >
+                                <span ms-html="@getImageHtml()"></span> <button type="button" ms-click="@getImage" class="f-ml5 f-btn">上传头像</button>
+                            </div>
+                        </td>
+                    </tr>
                     <tr><td class="mkoa-form-title"><span>姓名</span></td>
                         <td>
                             <input type="text" ms-duplex="@form.name" ms-rules='{required:true,minlength:1}' placeholder="请输入..." />
@@ -58,6 +65,7 @@
 
 <script src="<%-$HOST%>lib/jquery.min.js?<%-$SV%>"></script>
 <script src="<%-$HOST%>lib/avalon.js?<%-$SV%>"></script>
+<script src="<%-$HOST%>lib/webuploader/webuploader.min.js"></script>
 <script src="<%-$HOST%><%-$V%>/common.js?<%-$SV%>"></script>
 <script src="<%-$HOST%><%-$V%><%-$PATH%>.js?<%-$SV%>"></script>
 
