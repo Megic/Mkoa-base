@@ -20,8 +20,11 @@
 <div id="loading"><div id="loading-box"><p>加载中...</p></div></div>
 <!--loading.end-->
 <div ms-controller="main" class="f-p20">
-    <div class="f-cb f-mb10"><h3 class="f-fl list-title">修改个人信息</h3></div>
-    <div class="f-bgc-white f-p10 f-tac">
+    <div class="f-cb f-mb10">
+        <h3 class="f-fl list-title">用户列表<span>List</span></h3>
+        <a href="javascript:parent.history.go(-1);" class="f-fr f-btn">返回</a>
+    </div>
+    <div class="c-box f-p10 f-tac">
         <table  class="mkoa-table">
             <thead>
             <tr><th width="30">ID</th><th  width="70">姓名/昵称</th><th width="70">帐号名</th><th width="90">手机号码</th><th width="130" align="center">邮箱</th><th width="130">申请时间</th></tr>
@@ -34,7 +37,7 @@
             </tbody>
         </table>
 
-        <wbr ms-widget="[{is:'mk-pager'},@pager]" />
+        <wbr ms-widget="[{is:'mk-pager',id:'pager-list'},@pager]" />
     </div>
 </div>
 

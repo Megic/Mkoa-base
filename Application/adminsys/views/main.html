@@ -28,7 +28,7 @@
         </a>
         <span class="gc-top-nav" id="toggle-menu"><i>&#8801;</i></span>
     <span class="f-fr gc-top-right">
-        <a  ms-for="el in @topMenu" ms-class="[(@curMenu==el.id?'on':'')]" ms-click="@chooseMenu(el.id)"  ms-attr="{href:el.url}" target="gc-iframe" class="gc-top-nav"><i class="f-icon f-icon2 f-mr5" ms-html="el.icon" ></i>{{el.name}}</a>
+        <a  ms-for="el in @topMenu" ms-class="[(@curMenu==el.id?'on':'')]" ms-click="@chooseMenu(el.id)"  ms-attr="{href:'#!?'+el.url}"  class="gc-top-nav"><i class="f-icon f-icon2 f-mr5" ms-html="el.icon" ></i>{{el.name}}</a>
         <a ms-click="@lgout" class="gc-top-nav"><i class="f-icon f-mr5">&#xe617;</i>退出</a>
     </span>
     </div>
@@ -41,7 +41,7 @@
                     </div>
                     <div>
                 <span>
-                    <a  ms-for="obj in el.children" ms-attr="{href:obj.url}" target="gc-iframe" class="gc-menu-a f-textof">. {{obj.name}}</a>
+                    <a  ms-for="obj in el.children" ms-attr="{href:'#!?'+obj.url}" ms-class="{'on':obj.url==@mainurl}" class="gc-menu-a f-textof">. {{obj.name}}</a>
                 </span>
                     </div>
                 </li>
@@ -49,9 +49,7 @@
         </div>
     </div>
     <!--主体内容-->
-    <div class="gc-mn" >
-        <iframe ms-attr="{src:@mainurl}" frameborder="0" width="100%" height="100%" id="gc-iframe"  name="gc-iframe"  ></iframe>
-    </div>
+    <div class="gc-mn" ms-html="@getIframe()"></div>
 </div>
 
 

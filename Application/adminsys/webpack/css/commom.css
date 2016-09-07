@@ -1,13 +1,23 @@
 .list-title{
     margin: 0;
     padding: 0;
-    line-height: 34px;}
-.f-bgc-white{
-    background-color: #fff;}
+    line-height: 40px;
+    color: #49586e;
+    padding-left: 5px;}
+.list-title span{
+    font-size: 14px;
+    color: #aaa;
+    display: inline-block;
+    font-weight: normal;
+    margin-left:8px;}
+
+.c-box{
+    background-color: #fff; border-radius: 4px;
+    border-bottom: 1px solid #e5e5e5;}
 .mkoa-form{
     width: 100%;}
 .mkoa-form td{
-    border: 1px solid #ddd;text-align: left;
+    border: 1px solid #e8e8e8;text-align: left;
     padding: 10px;}
 .mkoa-form-title{
     width: 100px;

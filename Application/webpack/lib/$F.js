@@ -14,6 +14,23 @@ F.hideLoading=function(domid){
     }, 300);
 };
 
+function escapeCookie(value) {
+    return String(value).replace(/[,;"\\=\s%]/g, function (character) {
+        return encodeURIComponent(character)
+    });
+}
+F.setCookie=function(key, value,time) {
+    time=time?time:1000 * 60 * 60 * 24;
+    var date = new Date();//将date设置为1天以后的时间
+    date.setTime(date.getTime() +time );
+    document.cookie = escapeCookie(key) + '=' + escapeCookie(value) + ';expires=' + date.toGMTString()
+};
+
+F.getCookie=function(name) {
+    var m = String(document.cookie).match(new RegExp('(?:^| )' + name + '(?:(?:=([^;]*))|;|$)')) || ["", ""];
+    return decodeURIComponent(m[1])
+};
+
 //延时执行函数
 F.delay=function(callback,time){
     time=time?time:800;

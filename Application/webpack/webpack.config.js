@@ -48,6 +48,7 @@ module.exports = {
         ,alias: {
             '$msg':'msg/index'
             ,'$V':'$V'
+            ,'$router':'router/mmRouter'
             ,'$upload':'upload/index'
             ,'layer': 'layer/layer'
             ,'$F':'$F'

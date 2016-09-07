@@ -14,7 +14,7 @@ html{_height:auto;_padding:50px 0 0px;}
     background-color: #ebeef1;}
 .gc-sd{overflow-y:auto;
     width: 180px;
-    background-color: #303641;
+    background-color: #3d4d66;
     z-index: 0;}
 .gc-close .gc-mn{left: 0;_margin-left:0px;}
 
@@ -56,19 +56,24 @@ html{_height:auto;_padding:50px 0 0px;}
     line-height: 42px;
     color: #fff;}
 .gc-menu-title .gc-menu-h1{
-    height: 40px;
-    background-color: #425968;}
-.gc-menu-a{line-height: 42px;
-    height: 42px; color: #fff;
-    font-size: 14px;
-    display: block;background-color: #6c889b;
-    border-bottom: 1px solid #567082;
+    height: 50px;
+    line-height: 50px;
+    color: #a9bad0;
+    background-color: #35455c;}
+.gc-menu-a{
+    transition: all .2s linear;
+    line-height: 42px;
+    height: 42px; color: #a9bad0;
+    font-size: 12px;
+    display: block;background-color: #3d4d66;
+    border-bottom: 1px solid #4b5c77;
     white-space: nowrap;
     padding-left: 10px;
     text-decoration: none;}
 .gc-menu-a.on,.gc-menu-a:hover{
     background-color: #ebeef1;
-    color: #666;}
+    color: #35455c;
+}
 .gc-logo span{
     font-size: 26px;
     display: block;
