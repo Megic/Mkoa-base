@@ -46,9 +46,11 @@ module.exports=function(root){
         //     // maxAge:'',//也是在预请求的时候才会返回，标明了这个预请求的响应所返回信息的最长有效期，对应`Access-Control-Max-Age`
         //     ,credentials:true//标示该响应是合法的，对应`Access-Control-Allow-Credentials`
         // },
-        formLimit: 30000,//post最大长度
+        syncModel:true,
+        formLimit: 7*1024*1024,//post最大长度
+        maxFieldsSize: 7*1024*1024,//最大上传文件
         proxy:false,//如果用nginx代理，设置为true
-        fileType:['gif','jpg','png'],//允许上传文件的类型
+        fileType:['gif','jpg','png','jpeg','zip'],//允许上传文件的类型
         host:'',//访问域名，模板使用
         openSocket:false,//是否开启socket.io
         openRewrite:true,

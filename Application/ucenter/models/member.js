@@ -53,6 +53,12 @@ module.exports = function(sequelize, DataTypes) {
                         unique:false,
                         comment: '所属用户组'
                       },
+                sessionId: {
+                        type: DataTypes.CHAR(32),
+                        allowNull:true,
+                        unique:false,
+                        comment: 'sessionId'
+                      },
                 status: {
                         type: DataTypes.INTEGER,
                         allowNull:false,

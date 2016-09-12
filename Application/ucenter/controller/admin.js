@@ -20,12 +20,11 @@ module.exports = function ($this) {
                 where: {$or:orlist,id:{$ne:$this['req'].user.id}}
             });
             if(user){
-                $this.error('登录帐号/手机号码/Email已被他人使用');
+                $this.error('账户名/手机号码/Email已被他人使用');
             }else{
-                yield $D('member').update($this.POST, {where:{id:$this['req'].user.id}});
+                yield $D('member').update($this.POST, {fields:['name','phone','email','username','headimgurl'],where:{id:$this['req'].user.id}});
                 var newuser = yield $D('member').findOne({where: {id:$this['req'].user.id}});
                 yield $this.logIn(newuser);//更新登录信息
-                
                 $this.success();
             }
         }else{

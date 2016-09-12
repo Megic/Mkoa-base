@@ -4,8 +4,9 @@
 module.exports = function ($this) {
     var main = {};
     main['_init'] = function *() {//先执行的公共函数
-        //console.log($this['req'].user);
-        // console.log($this.user,$this['req'].user);
+        // console.log();
+        // console.log(yield $this.sessionStore.get($this.cookies.get($C.sessionConfig['key'])))
+        // console.log($this.cookies.get($C.sessionConfig['key']).length);
     };
     main['_after'] = function *() {//后行的公共函数
         //console.log('公共头部');
@@ -32,7 +33,11 @@ module.exports = function ($this) {
         }
     };//****************************
     main['register'] = function *() {
-        //验证码检测
+        if ($this.isAuthenticated()) {
+            $this.error('您已经登陆，请退出登陆后进行操作！'); //已经登录
+            return;
+        }
+       //验证码检测
         if(parseInt($this.POST['captcha'])!=$this.session.ucenter_captcha){
             $this.error($this.langs['captchaError']);return;
         }else{
@@ -57,20 +62,22 @@ module.exports = function ($this) {
             if (check.status) {/*通过验证*/
                 var res, resData;
                 var orlist=[];
+                //检查手机、邮箱、账户名是否重复
                 if($this.POST['phone'])orlist.push({phone: $this.POST['phone']});
                 if($this.POST['email'])orlist.push({email: $this.POST['email']});
                 if($this.POST['username'])orlist.push({username: $this.POST['username']});
                 var user = yield $D('member').findOne({
                     where: {$or:orlist}
                 });
-                if (!user) {
-                    $this.POST['password'] = $F.encode.md5($this.POST['password']);
-                    res = yield $D('member').build($this.POST).save();
+                if (!user) {//不存在重复信息，注册新用户
+                    $this.POST['password'] = $F.encode.md5($this.POST['password']);//加密密码
+                    $this.POST['sessionId']=$this.cookies.get($C.sessionConfig['key']);//记录sessionId
+                    res = yield $D('member').build($this.POST).save({fields:['name','phone','email','username','headimgurl','password','sessionId','groupId','status']});
                     yield $D('memberExtend').build({//填写用户扩展信息
                         memberId:res.id,extend:{}}
                     ).save();
                     resData = res;
-                    yield $this.logIn(resData);
+                    yield $this.logIn(resData);//登录注册用户
                     $this.success(resData);
                 } else {
                     $this.error($this.langs['doubleUser']);//用户重复
@@ -100,6 +107,7 @@ module.exports = function ($this) {
                         $this.error($this.langs['errorInfo']);//帐号密码错误
                     } else {
                         yield $this.logIn(user);
+                        yield $D('member').update({sessionId:$this.cookies.get($C.sessionConfig['key'])}, {where:{id:user.id}});//记录当前用户sessionId
                         $this.success(user);
                     }
                 });
