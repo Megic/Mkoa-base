@@ -1,0 +1,39 @@
+<div class="f-cb f-mb10"><h3 class="list-title">member数据</h3> <span class="f-fr"><a href="#!/?builder/admin/member/addItem" class="f-btn f-btn-success">增加数据</a></span></div>
+<div class="mkoa-box f-p10"  ms-controller="member-list">
+    <mkoa:pager  url="builder/admin/member/findAll" searchurl="builder/admin/member/search" >
+        <div slot="$top" id="search">
+            <select ms-duplex="searchKey" class="f-fl" >
+                <option value="id">ID</option>
+                <option value="name">昵称/姓名</option><option value="phone">手机号码</option><option value="email">邮箱</option><option value="username">用户名</option><option value="password">密码</option><option value="money">余额</option><option value="headimgurl">用户头像</option><option value="groupId">所属用户组</option><option value="sessionId">sessionId</option><option value="adminId">管理组</option><option value="orgId">组织ID</option><option value="status">状态</option>
+            </select>
+            <input type="text" ms-duplex="searchValue" class="f-fl f-ml5"/>
+            <button ms-click="search" class="f-btn f-btn-success f-ml10" >搜索</button>
+            <button ms-if="searchOpen" ms-click="closeSearch" class="f-btn">清空搜索</button>
+        </div>
+        <table slot="$list" class="mkoa-table">
+            <thead>
+            <tr><th width="30">ID</th><th>昵称/姓名</th><th>手机号码</th><th>邮箱</th><th>用户名</th><th>密码</th><th>余额</th><th>用户头像</th><th>所属用户组</th><th>sessionId</th><th>管理组</th><th>组织ID</th><th>状态</th><th width="155">创建时间</th><th width="100">操作</th></tr>
+            </thead>
+            <tbody>
+            <tr ms-repeat="listData"><td>{{el.id}}</td><td>{{el.name}}</td><td>{{el.phone}}</td><td>{{el.email}}</td><td>{{el.username}}</td><td>{{el.password}}</td><td>{{el.money}}</td><td>{{el.headimgurl}}</td><td>{{el.groupId}}</td><td>{{el.sessionId}}</td><td>{{el.adminId}}</td><td>{{el.orgId}}</td><td>{{el.status}}</td><td>{{el.createdAt|date("yyyy-MM-dd HH:mm:ss")}}</td>
+           <td><a ms-attr-href="'#!/?builder/admin/member/addItem?id='+el.id"  class="f-btn f-btn-sm">编辑</a> <button  ms-click="remove($remove,el.id)" class="f-btn f-btn-sm">删除</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </mkoa:pager>
+</div>
+<script>
+    require(["mkoaAjax/mkoaAjax","mkoaPagerFull/mkoaPagerFull"], function ($a){
+       avalon.define({
+            $id:'member-list',
+            remove:function($remove,id){
+                $a.getJSON(app.$host +'builder/admin/member/delete',{id:id},function(data){//删除数据
+                    if(!data.error){
+                        $remove();
+                    }
+                });
+            }
+        });
+        avalon.scan();
+    });
+</script>

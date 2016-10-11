@@ -1,1 +1,1 @@
-{"ucenter":[{"name":"memberExtend","url":"#!/?ucenter/admin/memberExtend/list"},{"name":"memberGroup","url":"#!/?ucenter/admin/memberGroup/list"}]}
+{"ucenter":[{"name":"memberExtend","url":"#!/?ucenter/admin/memberExtend/list"},{"name":"memberGroup","url":"#!/?ucenter/admin/memberGroup/list"},{"name":"member","url":"#!/?ucenter/admin/member/list"}],"upload":[{"name":"fileInfo","url":"#!/?upload/admin/fileInfo/list"}]}

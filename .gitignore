@@ -1,3 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 node_modules
 /static/1.0/
+.idea/dps.iml
+.idea/modules.xml
+.idea/workspace.xml

@@ -1,0 +1,96 @@
+<div ms-controller="member-addItem">
+<div class="f-cb f-mb10"><h3 class="list-title">编辑数据</h3>
+    <span class="f-fr"><a href="javascript:history.go(-1);" class="f-btn">返回</a></span></div>
+<div class="mkoa-box">
+    <div class="f-p10">
+    <form>
+        <table class="mkoa-form">
+            <tr ms-if="form.id">
+                <td width="120"><span class="mkoa-form-title">ID</span></td><td>{{form.id}}</td>
+            </tr>
+            <tr><td class="mkoa-form-title"><span>昵称/姓名</span></td>
+                <td><input type="text" ms-duplex="form.name"/></td></tr><tr><td class="mkoa-form-title"><span>手机号码</span></td>
+                <td><input type="text" ms-duplex="form.phone"/></td></tr><tr><td class="mkoa-form-title"><span>邮箱</span></td>
+                <td><input type="text" ms-duplex="form.email"/></td></tr><tr><td class="mkoa-form-title"><span>用户名</span></td>
+                <td><input type="text" ms-duplex="form.username"/></td></tr><tr><td class="mkoa-form-title"><span>密码</span></td>
+                <td><input type="text" ms-duplex="form.password"/></td></tr><tr><td class="mkoa-form-title"><span>余额</span></td>
+                <td><input type="text" ms-duplex="form.money"/></td></tr><tr><td class="mkoa-form-title"><span>用户头像</span></td>
+                <td><input type="text" ms-duplex="form.headimgurl"/></td></tr><tr><td class="mkoa-form-title"><span>所属用户组</span></td>
+                <td><input type="text" ms-duplex="form.groupId"/></td></tr><tr><td class="mkoa-form-title"><span>sessionId</span></td>
+                <td><input type="text" ms-duplex="form.sessionId"/></td></tr><tr><td class="mkoa-form-title"><span>管理组</span></td>
+                <td><input type="text" ms-duplex="form.adminId"/></td></tr><tr><td class="mkoa-form-title"><span>组织ID</span></td>
+                <td><input type="text" ms-duplex="form.orgId"/></td></tr><tr><td class="mkoa-form-title"><span>状态</span></td>
+                <td><input type="text" ms-duplex="form.status"/></td></tr>
+            <tr ms-if="form.createdAt">
+                <td width="120"><span class="mkoa-form-title">创建时间</span></td><td>{{form.createdAt|date("yyyy-MM-dd HH:mm:ss")}}</td>
+            </tr>
+            <tr ms-if="form.updatedAt">
+                <td width="120"><span class="mkoa-form-title">更新时间</span></td><td>{{form.updatedAt|date("yyyy-MM-dd HH:mm:ss")}}</td>
+            </tr>
+        </table>
+        <div class="f-mt10 f-tac">
+            <button type="button" class="f-btn f-btn-success" ms-class="f-btn-disabled:isLock" ms-click="save">{{isLock?'稍等...':'保存';}}</button>
+        </div>
+    </form>
+    </div>
+</div>
+</div>
+<script>
+    (function(){
+        //验证规则
+        var rules =  {
+                name: {rule:'max:40',error:'用户名长度有误'},
+                phone: {rule:'phone',error:'手机号码错误'},
+                email: {rule:'email',error:'邮箱格式错误'},
+                username: {rule:'between:3,30',error:'用户名长度不在3-30个字符内'},
+                password: {rule:'between:6,32',error:'密码不能少于6个字符'},
+                money: {rule:'integer',error:'验证失败!'},
+                headimgurl: {rule:'',error:'验证失败!'},
+                groupId: {rule:'required',error:'验证失败!'},
+                sessionId: {rule:'',error:'验证失败!'},
+                adminId: {rule:'required',error:'验证失败!'},
+                orgId: {rule:'required',error:'用户状态必须填写'},
+                status: {rule:'required',error:'用户状态必须填写'}};
+
+        var id=avalon.vmodels['router'].GET['id'];//是否存在id
+        var form={"name":"","phone":"","email":"","username":"","password":"","money":"","headimgurl":"","groupId":"","sessionId":"","adminId":"","orgId":"","status":""};//数据对象
+        require(["mkoaAjax/mkoaAjax","KoaValidator"],function($a,$v){
+        if(id){//更新数据
+            $a.getJSON(app.$host +'builder/admin/member/findOne',{id:id,t:new Date().getTime()},function(data){//获取列表数据
+                if(!data.error){
+                    pageLoad(data.data);
+                }
+            });
+        }else{//新增数据
+            pageLoad(form);
+        }
+        function pageLoad(form){
+            var vm=avalon.define({
+                $id:'member-addItem',
+                form:form,
+                isLock:0,
+                save:function(){
+                    var check = $v.validate(vm.form.$model, rules);//验证数据
+                    if (check.status) {/*通过验证*/
+                    vm.isLock=1;
+                    $a.post(app.$host +'builder/admin/member/add?'+new Date().getTime(),vm.form.$model,function(data){//获取列表数据
+                        if(!data.error){
+                            alert('提交成功!');
+                        }else{
+                            alert('写入数据不正确!');
+                        }
+                        vm.isLock=0;
+                    });
+                    }else{
+                        alert(rules[check.rejects[0].field].error);//验证错误
+                    }
+                }
+            });
+            avalon.scan();
+        }
+
+    });
+
+    })();
+
+</script>

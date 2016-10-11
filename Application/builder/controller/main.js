@@ -8,6 +8,8 @@ module.exports = function($this){
     var main={};
 
     main['_init']=function *(){//先执行的公共函数不会被缓存部分
+        // console.log()
+        // console.log($SYS.sequelize.modelManager)
     };
     main['_after']=function *(){//后行的公共函数
         //console.log('公共头部');
@@ -103,13 +105,20 @@ module.exports = function($this){
                 var fileName=modelPath+$this['POST'].modelName+'.js';
                 fs.writeFileSync(fileName,res);
                 $SYS.modelPath[$this['POST'].modelName]=fileName;
+                //删除模型缓存
+
+                // delete $SYS.sequelize.models[$this['POST'].modelName];
+                // delete $SYS.sequelize.modelManager.models[$this['POST'].modelName];
+                // $SYS.sequelize.importCache[fileName]=null;
+                // delete $SYS.sequelize.importCache[fileName];
             }
             if (fs.existsSync($this.modulePath+'data/module') || (yield fscp.mkdirp($this.modulePath+'data/module', '0755'))) {//判定文件夹是否存在
                 fs.writeFileSync($this.modulePath+'data/module/'+$this['POST'].modelName+'.js','module.exports='+JSON.stringify($this['POST'])+';');
             }
 
 
-            yield $D($this['POST'].modelName).sync({force: true});//写入数据表
+            yield $D($this['POST'].modelName,'',1).sync({force: true});//写入数据表
+
             //编辑安装锁
             var filePath=$C.ROOT+'/install.json';
             var modelData=[];
@@ -150,7 +159,8 @@ module.exports = function($this){
             var res=fs.readFileSync($this.modulePath+'lib/controller.tpl','utf-8');
             res=res.replace(/{{%name%}}/g,$this['POST'].modelName);
             res=res.replace('{{%rules%}}',fieldsARR);
-            var modelPath=$C.ROOT + '/' + $C.application + '/' + $this['POST'].root + '/controller/'+pathPrefix;
+            // var modelPath=$C.ROOT + '/' + $C.application + '/' + $this['POST'].root + '/controller/'+pathPrefix;
+            var modelPath=$C.ROOT + '/' + $C.application + '/builder/controller/'+pathPrefix;
             if (fs.existsSync(modelPath) || (yield fscp.mkdirp(modelPath, '0755'))) {//判定文件夹是否存在
                 fs.writeFileSync(modelPath+$this['POST'].modelName+'.js',res);
             }
@@ -194,7 +204,9 @@ module.exports = function($this){
             var index=fs.readFileSync($this.modulePath+'lib/admin.tpl.html','utf-8');
 
            // index=index.replace('{{%menuData%}}',JSON.stringify(menuData));
-            var vPath=$C.ROOT + '/' + $C.application + '/' + $this['POST'].root + '/views/';
+           // var vPath=$C.ROOT + '/' + $C.application + '/' + $this['POST'].root + '/views/';
+            var vPath=$C.ROOT + '/' + $C.application + '/builder/views/';
+
             if (fs.existsSync(vPath) || (yield fscp.mkdirp(vPath, '0755'))) {//判定文件夹是否存在
                 fs.writeFileSync($C.ROOT + '/' + $C.application + '/builder/views/admin.html',index);
             }
@@ -226,7 +238,9 @@ module.exports = function($this){
             fieldsARR+='}';
 
             //生成list文件
-            var controllerPath=$this['POST'].root+'/'+pathPrefix+$this['POST'].modelName+'/';
+            // var controllerPath=$this['POST'].root+'/'+pathPrefix+$this['POST'].modelName+'/';
+            var controllerPath='builder/'+pathPrefix+$this['POST'].modelName+'/';
+
             var list=fs.readFileSync($this.modulePath+'lib/list.tpl.html','utf-8');//读取模板
             list=list.replace('{{%searchSTR%}}',searchSTR);
             list=list.replace('{{%titleSTR%}}',titleSTR);

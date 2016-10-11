@@ -10,7 +10,7 @@ module.exports=function(root){
             'default':{//默认
                 username:'postgres'
                 ,password:'root'
-                ,database:'Mkoa'
+                ,database:'dps'
                 ,option:{
                     dialect:'postgres' //'mysql'|'mariadb'|'sqlite'|'postgres'|'mssql'
                     ,host:'localhost'
@@ -24,7 +24,7 @@ module.exports=function(root){
             ,pgsql:{
                 username:'postgres'
                 ,password:'root'
-                ,database:'Mkoa'
+                ,database:'dps'
                 ,host:'localhost'
                 ,port:5432
             }

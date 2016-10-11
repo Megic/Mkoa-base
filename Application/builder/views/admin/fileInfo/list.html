@@ -1,0 +1,39 @@
+<div class="f-cb f-mb10"><h3 class="list-title">fileInfo数据</h3> <span class="f-fr"><a href="#!/?builder/admin/fileInfo/addItem" class="f-btn f-btn-success">增加数据</a></span></div>
+<div class="mkoa-box f-p10"  ms-controller="fileInfo-list">
+    <mkoa:pager  url="builder/admin/fileInfo/findAll" searchurl="builder/admin/fileInfo/search" >
+        <div slot="$top" id="search">
+            <select ms-duplex="searchKey" class="f-fl" >
+                <option value="id">ID</option>
+                <option value="chunks">总分块数</option><option value="chunk">第几分块</option><option value="size">文件大小(KB)</option><option value="isall">传输完成</option><option value="name">文件名</option><option value="md5">MD5校验</option><option value="sign">唯一标识</option><option value="path">文件访问地址</option><option value="memberId">用户ID</option>
+            </select>
+            <input type="text" ms-duplex="searchValue" class="f-fl f-ml5"/>
+            <button ms-click="search" class="f-btn f-btn-success f-ml10" >搜索</button>
+            <button ms-if="searchOpen" ms-click="closeSearch" class="f-btn">清空搜索</button>
+        </div>
+        <table slot="$list" class="mkoa-table">
+            <thead>
+            <tr><th width="30">ID</th><th>总分块数</th><th>第几分块</th><th>文件大小(KB)</th><th>传输完成</th><th>文件名</th><th>MD5校验</th><th>唯一标识</th><th>文件访问地址</th><th>用户ID</th><th width="155">创建时间</th><th width="100">操作</th></tr>
+            </thead>
+            <tbody>
+            <tr ms-repeat="listData"><td>{{el.id}}</td><td>{{el.chunks}}</td><td>{{el.chunk}}</td><td>{{el.size}}</td><td>{{el.isall}}</td><td>{{el.name}}</td><td>{{el.md5}}</td><td>{{el.sign}}</td><td>{{el.path}}</td><td>{{el.memberId}}</td><td>{{el.createdAt|date("yyyy-MM-dd HH:mm:ss")}}</td>
+           <td><a ms-attr-href="'#!/?builder/admin/fileInfo/addItem?id='+el.id"  class="f-btn f-btn-sm">编辑</a> <button  ms-click="remove($remove,el.id)" class="f-btn f-btn-sm">删除</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </mkoa:pager>
+</div>
+<script>
+    require(["mkoaAjax/mkoaAjax","mkoaPagerFull/mkoaPagerFull"], function ($a){
+       avalon.define({
+            $id:'fileInfo-list',
+            remove:function($remove,id){
+                $a.getJSON(app.$host +'builder/admin/fileInfo/delete',{id:id},function(data){//删除数据
+                    if(!data.error){
+                        $remove();
+                    }
+                });
+            }
+        });
+        avalon.scan();
+    });
+</script>

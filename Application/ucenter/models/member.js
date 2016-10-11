@@ -59,6 +59,20 @@ module.exports = function(sequelize, DataTypes) {
                         unique:false,
                         comment: 'sessionId'
                       },
+                adminId: {
+                        type: DataTypes.INTEGER,
+                        allowNull:false,
+                        defaultValue:'0',
+                        unique:false,
+                        comment: '管理组'
+                      },
+                orgId: {
+                        type: DataTypes.INTEGER,
+                        allowNull:false,
+                        defaultValue:'0',
+                        unique:false,
+                        comment: '组织ID'
+                      },
                 status: {
                         type: DataTypes.INTEGER,
                         allowNull:false,

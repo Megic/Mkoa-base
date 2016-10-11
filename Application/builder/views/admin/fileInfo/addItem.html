@@ -1,0 +1,90 @@
+<div ms-controller="fileInfo-addItem">
+<div class="f-cb f-mb10"><h3 class="list-title">编辑数据</h3>
+    <span class="f-fr"><a href="javascript:history.go(-1);" class="f-btn">返回</a></span></div>
+<div class="mkoa-box">
+    <div class="f-p10">
+    <form>
+        <table class="mkoa-form">
+            <tr ms-if="form.id">
+                <td width="120"><span class="mkoa-form-title">ID</span></td><td>{{form.id}}</td>
+            </tr>
+            <tr><td class="mkoa-form-title"><span>总分块数</span></td>
+                <td><input type="text" ms-duplex="form.chunks"/></td></tr><tr><td class="mkoa-form-title"><span>第几分块</span></td>
+                <td><input type="text" ms-duplex="form.chunk"/></td></tr><tr><td class="mkoa-form-title"><span>文件大小(KB)</span></td>
+                <td><input type="text" ms-duplex="form.size"/></td></tr><tr><td class="mkoa-form-title"><span>传输完成</span></td>
+                <td><input type="text" ms-duplex="form.isall"/></td></tr><tr><td class="mkoa-form-title"><span>文件名</span></td>
+                <td><input type="text" ms-duplex="form.name"/></td></tr><tr><td class="mkoa-form-title"><span>MD5校验</span></td>
+                <td><input type="text" ms-duplex="form.md5"/></td></tr><tr><td class="mkoa-form-title"><span>唯一标识</span></td>
+                <td><input type="text" ms-duplex="form.sign"/></td></tr><tr><td class="mkoa-form-title"><span>文件访问地址</span></td>
+                <td><input type="text" ms-duplex="form.path"/></td></tr><tr><td class="mkoa-form-title"><span>用户ID</span></td>
+                <td><input type="text" ms-duplex="form.memberId"/></td></tr>
+            <tr ms-if="form.createdAt">
+                <td width="120"><span class="mkoa-form-title">创建时间</span></td><td>{{form.createdAt|date("yyyy-MM-dd HH:mm:ss")}}</td>
+            </tr>
+            <tr ms-if="form.updatedAt">
+                <td width="120"><span class="mkoa-form-title">更新时间</span></td><td>{{form.updatedAt|date("yyyy-MM-dd HH:mm:ss")}}</td>
+            </tr>
+        </table>
+        <div class="f-mt10 f-tac">
+            <button type="button" class="f-btn f-btn-success" ms-class="f-btn-disabled:isLock" ms-click="save">{{isLock?'稍等...':'保存';}}</button>
+        </div>
+    </form>
+    </div>
+</div>
+</div>
+<script>
+    (function(){
+        //验证规则
+        var rules =  {
+                chunks: {rule:'required',error:'验证失败!'},
+                chunk: {rule:'required',error:'验证失败!'},
+                size: {rule:'required',error:'验证失败!'},
+                isall: {rule:'required',error:'验证失败!'},
+                name: {rule:'required',error:'验证失败!'},
+                md5: {rule:'required',error:'验证失败!'},
+                sign: {rule:'required',error:'验证失败!'},
+                path: {rule:'required',error:'验证失败!'},
+                memberId: {rule:'required',error:'验证失败!'}};
+
+        var id=avalon.vmodels['router'].GET['id'];//是否存在id
+        var form={"chunks":"","chunk":"","size":"","isall":"","name":"","md5":"","sign":"","path":"","memberId":""};//数据对象
+        require(["mkoaAjax/mkoaAjax","KoaValidator"],function($a,$v){
+        if(id){//更新数据
+            $a.getJSON(app.$host +'builder/admin/fileInfo/findOne',{id:id,t:new Date().getTime()},function(data){//获取列表数据
+                if(!data.error){
+                    pageLoad(data.data);
+                }
+            });
+        }else{//新增数据
+            pageLoad(form);
+        }
+        function pageLoad(form){
+            var vm=avalon.define({
+                $id:'fileInfo-addItem',
+                form:form,
+                isLock:0,
+                save:function(){
+                    var check = $v.validate(vm.form.$model, rules);//验证数据
+                    if (check.status) {/*通过验证*/
+                    vm.isLock=1;
+                    $a.post(app.$host +'builder/admin/fileInfo/add?'+new Date().getTime(),vm.form.$model,function(data){//获取列表数据
+                        if(!data.error){
+                            alert('提交成功!');
+                        }else{
+                            alert('写入数据不正确!');
+                        }
+                        vm.isLock=0;
+                    });
+                    }else{
+                        alert(rules[check.rejects[0].field].error);//验证错误
+                    }
+                }
+            });
+            avalon.scan();
+        }
+
+    });
+
+    })();
+
+</script>
