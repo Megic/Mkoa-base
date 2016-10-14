@@ -106,18 +106,17 @@ module.exports = function($this){
                 fs.writeFileSync(fileName,res);
                 $SYS.modelPath[$this['POST'].modelName]=fileName;
                 //删除模型缓存
-
-                // delete $SYS.sequelize.models[$this['POST'].modelName];
-                // delete $SYS.sequelize.modelManager.models[$this['POST'].modelName];
-                // $SYS.sequelize.importCache[fileName]=null;
-                // delete $SYS.sequelize.importCache[fileName];
             }
             if (fs.existsSync($this.modulePath+'data/module') || (yield fscp.mkdirp($this.modulePath+'data/module', '0755'))) {//判定文件夹是否存在
                 fs.writeFileSync($this.modulePath+'data/module/'+$this['POST'].modelName+'.js','module.exports='+JSON.stringify($this['POST'])+';');
             }
 
+                //实时生成数据表
+                delete require.cache[require.resolve($SYS.modelPath[$this['POST'].modelName])];//删除缓存
+                var modelbody=require( $SYS.modelPath[$this['POST'].modelName])($SYS.sequelize,require('sequelize'));
+                modelbody.sync({force: true});//写入数据表
 
-            yield $D($this['POST'].modelName,'',1).sync({force: true});//写入数据表
+
 
             //编辑安装锁
             var filePath=$C.ROOT+'/install.json';
