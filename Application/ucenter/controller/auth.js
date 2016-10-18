@@ -33,8 +33,9 @@ module.exports = function ($this) {
         }
     };//****************************
     main['register'] = function *() {
+        var needCheck=1;//是否需要审核
         if ($this.isAuthenticated()) {
-            $this.error('您已经登陆，请退出登陆后进行操作！'); //已经登录
+            $this.error('您已登陆，退出登陆后再操作！'); //已经登录
             return;
         }
        //验证码检测
@@ -44,7 +45,7 @@ module.exports = function ($this) {
             $this.session.ucenter_captcha=null;
         }
 
-        $this.POST['status']=1;
+        $this.POST['status']=needCheck?0:1;
         $this.POST['groupId']=1;//默认用户组
         /*验证规则*/
         var rules = {
@@ -54,8 +55,7 @@ module.exports = function ($this) {
             username: {rule:'between:3,30',error:'用户名长度不在3-30个字符内'},
             password: {rule:'required|between:6,32',error:'密码不能少于6个字符'},
             headimgurl: {rule:'max:250',error:'头像地址有误'},
-            groupId: {rule:'required',error:'验证失败!'},
-            status: {rule:'required',error:'用户状态必须填写'}};
+            groupId: {rule:'required',error:'验证失败!'}};
 
         var check = $F.V.validate($this.POST, rules);//验证数据
         if($this.POST['phone']||$this.POST['email']||$this.POST['username']) {
@@ -77,8 +77,8 @@ module.exports = function ($this) {
                         memberId:res.id,extend:{}}
                     ).save();
                     resData = res;
-                    yield $this.logIn(resData);//登录注册用户
-                    $this.success(resData);
+                    if(!needCheck)yield $this.logIn(resData);//登录注册用户
+                    $this.success({user:resData,needCheck:needCheck});
                 } else {
                     $this.error($this.langs['doubleUser']);//用户重复
                 }

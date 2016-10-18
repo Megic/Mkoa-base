@@ -12,19 +12,19 @@ module.exports = function(sequelize, DataTypes) {
                 phone: {
                         type: DataTypes.STRING(11),
                         allowNull:true,
-                        unique:true,
+                        unique:false,
                         comment: '手机号码'
                       },
                 email: {
                         type: DataTypes.STRING(80),
-                        allowNull:true,
-                        unique:true,
+                        allowNull:false,
+                        unique:false,
                         comment: '邮箱'
                       },
                 username: {
                         type: DataTypes.STRING(30),
                         allowNull:true,
-                        unique:true,
+                        unique:false,
                         comment: '用户名'
                       },
                 password: {
