@@ -11,7 +11,6 @@ module.exports = function ($this) {
     };
     main['setInfo'] = function *() {//修改用户信息
         if($this.POST['phone']||$this.POST['email']||$this.POST['username']) {
-            var res, resData;
             var orlist=[];
             if($this.POST['phone'])orlist.push({phone: $this.POST['phone']});
             if($this.POST['email'])orlist.push({email: $this.POST['email']});

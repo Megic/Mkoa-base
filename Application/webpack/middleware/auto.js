@@ -16,7 +16,7 @@ module.exports = function(app){
             moudelList.forEach(function(item){
                 if(fs.statSync(apppath + '/' + item).isDirectory()){
                     var mdPath=apppath + '/' + item+ '/webpack/entry/' ;//加载入口文件
-                    if(fs.existsSync(mdPath)) libArr.push(mdPath);//监听入口文件夹
+                    if(fs.existsSync(mdPath)) libArr.push(path.normalize(mdPath));//监听入口文件夹
                 }});
             return libArr;
         }
@@ -24,40 +24,40 @@ module.exports = function(app){
         var baseConfig=require('../config.base.js');
         var apppath=path.normalize($C.ROOT+ '/' +$C.application);
         function runwepack(filepath){
-            // if(filepath&&filepath.indexOf("\\webpack\\entry\\")>0){
-            if(filepath){
-                var name= filepath.toString().replace(apppath,'').replace('\\webpack\\entry','').replace('.js','');
-                baseConfig.entry={};//修改入口文件
-                baseConfig.entry[name]=filepath;
-                // baseConfig.plugins=[];//取消公共文件
-                baseConfig.module.loaders[1].loader='style!css';
-                //console.log(baseConfig.module.loaders)
-                baseConfig.plugins.shift();
-                baseConfig.plugins.shift();
-                console.log('开始编译：'+filepath);
-                webpack(baseConfig, function(err, stats) {
-                    if(err) console.log('编译错误！');
-                    console.log('编译成功！')
-                });
-            }
+           // if(filepath&&filepath.indexOf("\\webpack\\entry\\")>0){
+             if(filepath){
+               var name= filepath.toString().replace(apppath,'').replace('\\webpack\\entry','').replace('.js','');
+               baseConfig.entry={};//修改入口文件
+               baseConfig.entry[name]=filepath;
+                 // baseConfig.plugins=[];//取消公共文件
+                 baseConfig.module.loaders[1].loader='style!css';
+                 //console.log(baseConfig.module.loaders)
+                 baseConfig.plugins.shift();
+                 baseConfig.plugins.shift();
+               console.log('开始编译：'+filepath);
+               webpack(baseConfig, function(err, stats) {
+                   if(err) console.log('编译错误！');
+                   console.log('编译成功！')
+               });
+           }
         }
         function init(){//入口文件夹变动初始化
             "use strict";
             var lock=false;
             var newArr=getEntryPath();
-            // var newArr=$C.ROOT+ '/' +$C.application;
+           // var newArr=$C.ROOT+ '/' +$C.application;
             if(oldArry.length!=newArr.length){
                 oldArry=newArr;
                 if(entrywatch)entrywatch.close();//关闭监控
                 entrywatch=chokidar.watch(oldArry, {ignored:/\.js___jb_tmp___$/})//监控文件夹及文件新增删除,
-                        .on('add', path => {if(lock)runwepack(path)})
-            .on('change', path => {if(lock)runwepack(path)})
-                // .on('unlink', path =>{if(lock)runwepack(path)})
-            .on('ready', () =>{//初始化
-                    console.log('webpack监听开启');
-                // runwepack();//执行webpack监控
-                lock=true;
-            });
+                    .on('add', path => {if(lock)runwepack(path)})
+                    .on('change', path => {if(lock)runwepack(path)})
+                    // .on('unlink', path =>{if(lock)runwepack(path)})
+                    .on('ready', () =>{//初始化
+                        console.log('webpack监听开启');
+                       // runwepack();//执行webpack监控
+                        lock=true;
+                    });
             }
         }
         init();

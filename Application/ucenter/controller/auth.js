@@ -106,9 +106,14 @@ module.exports = function ($this) {
                     if (user === false) {
                         $this.error($this.langs['errorInfo']);//帐号密码错误
                     } else {
-                        yield $this.logIn(user);
-                        yield $D('member').update({sessionId:$this.cookies.get($C.sessionConfig['key'])}, {where:{id:user.id}});//记录当前用户sessionId
-                        $this.success(user);
+                        if(user.status==1){//状态正常
+                            yield $this.logIn(user);
+                            yield $D('member').update({sessionId:$this.cookies.get($C.sessionConfig['key'])}, {where:{id:user.id}});//记录当前用户sessionId
+                            $this.success(user);
+                        }else{
+                            $this.error($this.langs['backStatus']);
+                        }
+
                     }
                 });
             }else{
