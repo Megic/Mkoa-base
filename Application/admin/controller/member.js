@@ -5,7 +5,7 @@ module.exports = function ($this) {
     var main = {};
     main['_init'] = function *() {//先执行的公共函数
         if (!this.isAuthenticated())$this.error(401);//没登录
-        if($this['req']['user'].groupId!=2)$this.error(403);//没有权限
+        if(!$this['req']['user'].adminId)$this.error(403);//没有权限
     };
     main['_after'] = function *() {//后行的公共函数
         //console.log('公共头部');

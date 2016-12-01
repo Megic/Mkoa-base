@@ -13,10 +13,17 @@ var vm = avalon.define({
     submit:function(e){
         e.preventDefault();
         $F.POSTLoading($C.apiPath+'ucenter/auth/register',vm.form.$model,function(data){//获取列表数据
-            $msg.success('注册成功!');
-            setTimeout(function(){
-                location.href='main';
-            },500)
+            if(!data.needCheck){
+                $msg.success('注册成功!');
+                setTimeout(function(){
+                    location.href='main';
+                },500)
+            }else{
+                $msg.success('注册成功!等待管理员审核。');
+                setTimeout(function(){
+                    location.href='login';
+                },500)
+            }
         },function(){
             $('#captcha').click();//刷新验证码
         });

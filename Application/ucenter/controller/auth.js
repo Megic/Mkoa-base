@@ -73,12 +73,12 @@ module.exports = function ($this) {
                     $this.POST['password'] = $F.encode.md5($this.POST['password']);//加密密码
                     $this.POST['sessionId']=$this.cookies.get($C.sessionConfig['key']);//记录sessionId
                     res = yield $D('member').build($this.POST).save({fields:['name','phone','email','username','headimgurl','password','sessionId','groupId','status']});
-                    yield $D('memberExtend').build({//填写用户扩展信息
-                        memberId:res.id,extend:{}}
-                    ).save();
-                    resData = res;
-                    if(!needCheck)yield $this.logIn(resData);//登录注册用户
-                    $this.success({user:resData,needCheck:needCheck});
+                    // yield $D('memberExtend').build({//填写用户扩展信息
+                    //     memberId:res.id,extend:{}}
+                    // ).save();
+                    // resData = res;
+                    if(!needCheck)yield $this.logIn(res);//登录注册用户
+                    $this.success({user:res,needCheck:needCheck});
                 } else {
                     $this.error($this.langs['doubleUser']);//用户重复
                 }
